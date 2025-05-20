@@ -1,0 +1,127 @@
+<% layout("/layouts/boilerplate")    %>
+<body>
+    <div class="row mt-3">
+        <div class="col-8 offset-3">
+    <h3>title:<%= single.title %></h3>
+    <!-- imagecard -->
+
+
+    <div class="card listing-card" style="width: 18rem;">
+        <img src="<%=single.image.url %>" class="card-img-top" alt="...">
+        <div class="card-body">
+          <!-- <p class="card-text"> <li>title:<%= single.title %></li></p> -->
+        </div>
+      </div>
+    <ul>
+    <li>owned by:<%= single.owner.username %></li>
+    <li>id:<%= single.id %></li>
+    <li>desc:<%= single.description %></li>
+ <li>price: &#8377;<%= Number(single.price).toLocaleString("en-IN") %></li>
+
+    <li>location:<%= single.location %></li>
+    <li>country:<%= single.country %></li>
+    <!-- <img src="<%=single.image %>"> -->
+</ul>
+   <br>
+   <br>
+ <% if(currentuser && currentuser._id.equals(single.owner._id)){ %>
+ <button class="btn btn-edit ">  <a href="/edit/<%= single.id %>">edit this list</a></button>
+   <br>
+   <br>
+   <form method="post" action="/delete/<%= single.id %>?_method=delete">
+    <button class="btn btn-dark">delete</button>
+    </form>
+
+<% } %>
+</div>
+
+</div>
+<!-- //review model -->
+<div class="col-8 offset-3">
+  <hr>
+  <% if (currentuser) { %>
+  <h4>leave a review</h4>
+  <form method="post" action="/listings/<%= single.id%>/reviews" novalidate class="needs-validation">
+    <!-- <div class="mb-3 mt-3">
+      <label for="rating" class="form-label">rating</label>
+      <input type="range" name="review[rating]" id="rating" min="1" max="5"  class="form-range" >
+    </div> -->
+    <!-- //add starlity -->
+     
+     <div class="mb-3 mt-3">
+      <label for="rating" class="form-label">rating</label>
+     <fieldset class="starability-growRotate" >
+  
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" required />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+</div>
+
+
+<!-- starlityend -->
+    <div class="mb-3 mt-3">
+      <label for="comment" class="form-label">comment</label>
+      <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+      <div class="invalid-feedback">
+        please enter a comment
+        </div>
+       
+        
+     
+    </div>
+    <!-- add for name -->
+    <div class="mb-5 mt-3 ">
+      <label for="name" class="form-label">name</label>
+      <input type="text" name="review[name]" id="name" class="form-control" required>
+      <div class="invalid-feedback">
+        please enter a name
+        </div>  
+   
+    <button class="btn btn-success mt-3">submit</button>
+  </form>
+</div>
+<% } %>
+
+<p><b>ALL Reviews</b></p>
+
+
+<div class="row">
+<% for(review of single.reviews) { %>
+  <div class="card col-5 ms-3 mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><%= review.author.username %></h5>
+       <p class="starability-result" data-rating="<%= review.rating %>">
+    Rated: 3 stars
+  </p>
+      <p class="card-text">comment::<%= review.comment %></p>
+      <p class="card-text">rating::<%= review.rating %>*</p>
+
+
+    </div>
+    <form method="post" action="/listings/<%= single.id %>/reviews/<%= review._id %>?_method=delete">
+      <button class="mb-3 mt-3 btn btn-outline-dark ">delete</button>
+    </form>
+  </div>
+
+  
+
+<% } %>
+</div>
+<script src='/js/newjs.js'></script>
+</body>
+<h5>where you are</h5>
+<div class="col-8 offset-3" id="map" >
+
+</div>
+<script type="module" src="/js/map.js"></script>
+
+
+<!-- review rating validation message -->

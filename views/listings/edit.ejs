@@ -1,0 +1,73 @@
+
+<% layout("/layouts/boilerplate")    %>
+<body>
+    <div class="row">
+        <div class="col-8 offset-2">
+    <h1>Edit it</h1>
+    
+    
+    <form method="post" action="/edit/it/<%= Post._id %>?_method=PUT" novalidate class=" needs-validation" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">title</label>
+            <input type="text" name="title" placeholder="<%= Post.title %>" class="form-control" required>
+            <div class="valid-feedback">
+              Looks good!valid title
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">description</label>
+            <input type="text" name="description" placeholder="<%= Post.description %>" class="form-control" required>
+            <div class="invalid-feedback">
+              enter a valid  short description
+            </div>
+        </div>
+        <h3>original image</h3>
+<div class="mb-3">
+  <img src="<%= originalurl %>" height="200px" width="200px" >
+</div>
+
+
+      <div class="mb-3">
+        <label for="image" class="form-label">uplode updated image</label>
+        <input type="file" name="image"  class="form-control" >
+        <!-- <div class="invalid-feedback">
+          enter a url
+        </div> -->
+
+      </div>
+      <!-- edit style in single line -->
+       <div class="row">
+      <div class="mb-3 col-4">
+        <label for="ptrice" class="form-label">price</label>
+
+        <input type="text" name="price" placeholder="<%= Post.price %>" class="form-control" required>
+        <div class="invalid-feedback">
+         enter a valid prise
+        </div>
+      </div>
+      <div class="mb3 col-8">
+        
+        <label for="country" class="form-label">country</label>
+        <input type="text" name="country" placeholder="<%= Post.country %>" class="form-control" required>
+        <div class="invalid-feedback">
+         enter a valid country name
+        </div>
+
+      </div>
+    </div>
+        <div class="mb-3">
+            <label for="location" class="form-label">location</label>
+            <input type="text" name="location" placeholder="<%= Post.location %>" class="form-control" required>
+            <div class="invalid-feedback">
+             enter a valid location
+            </div>
+        </div>
+        
+        
+<button class="btn btn-dark">submit</button>
+        
+    </form>
+</div>
+</div>
+<script src="/js/newjs.js"></script>  
+</body>
