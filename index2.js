@@ -123,10 +123,10 @@ main().catch(err => console.log(err));
 
 
 
-// Home route
-app.get("/", (req, res) => {
-    res.send("I am in the home page");
-});
+// // Home route
+// app.get("/", (req, res) => {
+//     res.send("I am in the home page");
+// });
 
 // Catch-all route for undefined paths
 app.all("*", (req, res, next) => {
